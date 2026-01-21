@@ -53,9 +53,13 @@ def fetch_studies(max_studies=5):
 
     all_pmids = set()
 
-    # Step 1: Search for PMIDs from each query
-    for query in PUBMED_QUERIES:
+    # Step 1: Search for PMIDs from each query (with rate limiting)
+    for i, query in enumerate(PUBMED_QUERIES):
         try:
+            # Rate limit: NCBI allows 3 requests/second without API key
+            if i > 0:
+                time.sleep(0.5)
+
             params = {
                 'db': 'pubmed',
                 'term': query,
@@ -81,6 +85,9 @@ def fetch_studies(max_studies=5):
 
     # Step 2: Fetch article details for all PMIDs
     print(f"Fetching details for {len(all_pmids)} unique articles...")
+
+    # Rate limit before fetching
+    time.sleep(1)
 
     try:
         params = {
