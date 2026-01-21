@@ -48,8 +48,10 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # Add generated files
-          git add episodes/*.mp3 feed.xml latest_script.txt
+          # Add generated files if they exist
+          git add -A episodes/ || true
+          git add feed.xml || true
+          git add latest_script.txt || true
 
           # Check if there are changes to commit
           if git diff --staged --quiet; then

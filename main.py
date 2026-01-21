@@ -9,8 +9,8 @@ Uses Claude for script generation and ElevenLabs for audio synthesis.
 import os
 import re
 import hashlib
-import feedparser
 import requests
+import time
 from datetime import datetime, timezone
 from dateutil import parser as date_parser
 from bs4 import BeautifulSoup
@@ -27,13 +27,17 @@ import shutil
 GITHUB_USERNAME = "Dc1616DC"
 REPO_NAME = "glp1-research-podcast"
 
-# PubMed RSS feed URLs
-PUBMED_FEEDS = [
-    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1?term=%22GLP-1+agonist%22+AND+%28%22muscle+mass%22+OR+%22protein+intake%22%29&limit=15&sort=date",
-    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1?term=%28%22semaglutide%22+OR+%22tirzepatide%22%29+AND+nutrition&limit=15&sort=date",
-    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1?term=%22GLP-1%22+AND+%28%22side+effects%22+OR+%22nausea%22%29&limit=15&sort=date",
-    "https://pubmed.ncbi.nlm.nih.gov/rss/search/1?term=%22Anti+Obesity+Medications%22+AND+protein&limit=15&sort=date",
+# PubMed search queries (using E-utilities API)
+PUBMED_QUERIES = [
+    '"GLP-1 agonist" AND ("muscle mass" OR "protein intake")',
+    '("semaglutide" OR "tirzepatide") AND nutrition',
+    '"GLP-1" AND ("side effects" OR "nausea")',
+    '"Anti Obesity Medications" AND protein',
 ]
+
+# E-utilities base URLs
+ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 # ElevenLabs voice IDs
 VOICE_DAN = "pNInz6obpgDQGcFmaJgB"  # Adam - male voice for Dan
@@ -42,47 +46,108 @@ VOICE_ALEX = "21m00Tcm4TlvDq8ikWAM"  # Rachel - female voice for Alex
 
 def fetch_studies(max_studies=5):
     """
-    Fetch unique studies from PubMed RSS feeds.
+    Fetch unique studies from PubMed using E-utilities API.
     Returns a list of dicts with title, abstract, link, and pubdate.
     """
     print("Fetching studies from PubMed...")
 
-    all_studies = []
-    seen_titles = set()
+    all_pmids = set()
 
-    for feed_url in PUBMED_FEEDS:
+    # Step 1: Search for PMIDs from each query
+    for query in PUBMED_QUERIES:
         try:
-            feed = feedparser.parse(feed_url)
-            for entry in feed.entries:
-                title = entry.get('title', '').strip()
+            params = {
+                'db': 'pubmed',
+                'term': query,
+                'retmax': 10,
+                'sort': 'date',
+                'retmode': 'json'
+            }
+            response = requests.get(ESEARCH_URL, params=params, timeout=30)
+            response.raise_for_status()
+            data = response.json()
 
-                # Skip duplicates
-                title_hash = hashlib.md5(title.lower().encode()).hexdigest()
-                if title_hash in seen_titles:
-                    continue
-                seen_titles.add(title_hash)
+            pmids = data.get('esearchresult', {}).get('idlist', [])
+            all_pmids.update(pmids)
+            print(f"  Query '{query[:40]}...' returned {len(pmids)} results")
 
-                # Extract abstract from summary/description
-                summary = entry.get('summary', entry.get('description', ''))
+        except Exception as e:
+            print(f"Error searching PubMed for '{query[:30]}...': {e}")
+            continue
 
-                # Parse publication date
-                pub_date = entry.get('published', entry.get('pubDate', ''))
-                try:
-                    parsed_date = date_parser.parse(pub_date)
-                except:
+    if not all_pmids:
+        print("No PMIDs found from any query")
+        return []
+
+    # Step 2: Fetch article details for all PMIDs
+    print(f"Fetching details for {len(all_pmids)} unique articles...")
+
+    try:
+        params = {
+            'db': 'pubmed',
+            'id': ','.join(all_pmids),
+            'retmode': 'xml'
+        }
+        response = requests.get(EFETCH_URL, params=params, timeout=60)
+        response.raise_for_status()
+
+        # Parse XML response
+        soup = BeautifulSoup(response.content, 'xml')
+        articles = soup.find_all('PubmedArticle')
+
+        all_studies = []
+        for article in articles:
+            try:
+                # Extract title
+                title_elem = article.find('ArticleTitle')
+                title = title_elem.get_text() if title_elem else "No title"
+
+                # Extract abstract
+                abstract_elem = article.find('Abstract')
+                if abstract_elem:
+                    abstract_texts = abstract_elem.find_all('AbstractText')
+                    abstract = ' '.join([t.get_text() for t in abstract_texts])
+                else:
+                    abstract = "No abstract available."
+
+                # Extract PMID for link
+                pmid_elem = article.find('PMID')
+                pmid = pmid_elem.get_text() if pmid_elem else ""
+                link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else ""
+
+                # Extract publication date
+                pub_date_elem = article.find('PubDate')
+                if pub_date_elem:
+                    year = pub_date_elem.find('Year')
+                    month = pub_date_elem.find('Month')
+                    day = pub_date_elem.find('Day')
+
+                    year_str = year.get_text() if year else "2024"
+                    month_str = month.get_text() if month else "Jan"
+                    day_str = day.get_text() if day else "1"
+
+                    try:
+                        parsed_date = date_parser.parse(f"{month_str} {day_str}, {year_str}")
+                    except:
+                        parsed_date = datetime.now(timezone.utc)
+                else:
                     parsed_date = datetime.now(timezone.utc)
 
                 study = {
                     'title': title,
-                    'abstract': BeautifulSoup(summary, 'html.parser').get_text(),
-                    'link': entry.get('link', ''),
+                    'abstract': abstract,
+                    'link': link,
                     'pubdate': parsed_date,
                 }
                 all_studies.append(study)
 
-        except Exception as e:
-            print(f"Error fetching feed {feed_url}: {e}")
-            continue
+            except Exception as e:
+                print(f"Error parsing article: {e}")
+                continue
+
+    except Exception as e:
+        print(f"Error fetching article details: {e}")
+        return []
 
     # Sort by publication date (most recent first) and limit
     all_studies.sort(key=lambda x: x['pubdate'], reverse=True)
