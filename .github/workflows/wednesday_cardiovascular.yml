@@ -1,9 +1,9 @@
-name: Weekly GLP-1 Research Podcast
+name: Wednesday - Heart Health Research Digest
 
 on:
-  # Run every Monday at 12:00 UTC (8:00 AM EST)
+  # Run every Wednesday at 12:00 UTC (8:00 AM EST)
   schedule:
-    - cron: '0 12 * * 1'
+    - cron: '0 12 * * 3'
 
   # Allow manual trigger for testing
   workflow_dispatch:
@@ -40,6 +40,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          PODCAST_TOPIC: cardiovascular
         run: |
           python main.py
 
@@ -57,6 +58,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Add podcast episode for $(date +'%Y-%m-%d')"
+            git commit -m "Add Heart Health Research Digest episode for $(date +'%Y-%m-%d')"
             git push
           fi

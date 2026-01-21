@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-GLP-1 Research Podcast Generator
+Health Research Podcast Generator
 
-Automated weekly podcast analyzing GLP-1 nutrition research from PubMed.
+Automated podcast analyzing health and nutrition research from PubMed.
 Uses Claude for script generation and ElevenLabs for audio synthesis.
+Supports multiple topic categories.
 """
 
 import os
@@ -27,13 +28,86 @@ import shutil
 GITHUB_USERNAME = "Dc1616DC"
 REPO_NAME = "glp1-research-podcast"
 
-# PubMed search queries (using E-utilities API)
-PUBMED_QUERIES = [
-    '"GLP-1 agonist" AND ("muscle mass" OR "protein intake")',
-    '("semaglutide" OR "tirzepatide") AND nutrition',
-    '"GLP-1" AND ("side effects" OR "nausea")',
-    '"Anti Obesity Medications" AND protein',
-]
+# Topic configurations
+TOPICS = {
+    "glp1": {
+        "name": "GLP-1 Research Digest",
+        "description": "GLP-1 and obesity medication research",
+        "file_prefix": "glp1-digest",
+        "queries": [
+            '"GLP-1 agonist" AND ("muscle mass" OR "protein intake")',
+            '("semaglutide" OR "tirzepatide") AND nutrition',
+            '"GLP-1" AND ("side effects" OR "nausea")',
+            '"Anti Obesity Medications" AND protein',
+        ],
+        "host_focus": """HOST 1 - DAN:
+- Registered dietitian with 15 years of clinical experience
+- Evidence-focused and appropriately skeptical
+- Critical of poorly designed studies and overhyped findings
+- Speaks in clear, accessible language but doesn't dumb things down
+- Occasionally uses dry humor
+
+HOST 2 - ALEX:
+- Science journalist who covers metabolic health
+- Asks the questions that listeners would ask
+- Helps translate complex concepts
+- Curious and engaged, but defers to Dan on clinical matters
+- Good at drawing out practical implications""",
+        "context": "GLP-1 and obesity medication research for healthcare professionals and educated patients"
+    },
+    "cardiovascular": {
+        "name": "Heart Health Research Digest",
+        "description": "Cardiovascular disease and nutrition research",
+        "file_prefix": "heart-health",
+        "queries": [
+            '"cardiovascular disease" AND (diet OR nutrition)',
+            '"heart disease" AND ("Mediterranean diet" OR "DASH diet")',
+            '(hypertension OR "blood pressure") AND (sodium OR potassium OR diet)',
+            '"atherosclerosis" AND (cholesterol OR "saturated fat" OR nutrition)',
+            '"heart failure" AND (nutrition OR "dietary intervention")',
+        ],
+        "host_focus": """HOST 1 - DAN:
+- Registered dietitian specializing in cardiac rehabilitation
+- Evidence-focused and appropriately skeptical of fad diets
+- Critical of poorly designed studies and supplement industry hype
+- Speaks in clear, accessible language about complex lipid science
+- Occasionally uses dry humor about butter and egg controversies
+
+HOST 2 - ALEX:
+- Science journalist who covers cardiovascular health
+- Asks the questions that heart patients would ask
+- Helps translate complex cholesterol and blood pressure concepts
+- Curious and engaged, but defers to Dan on clinical nutrition
+- Good at drawing out practical dietary implications""",
+        "context": "cardiovascular and heart health research for healthcare professionals and health-conscious individuals"
+    },
+    "metabolic": {
+        "name": "Metabolic Health Digest",
+        "description": "Metabolism, diabetes, and nutrition research",
+        "file_prefix": "metabolic-health",
+        "queries": [
+            '"type 2 diabetes" AND (nutrition OR diet OR "lifestyle intervention")',
+            '"insulin resistance" AND (exercise OR diet OR fasting)',
+            '"metabolic syndrome" AND (nutrition OR "weight loss")',
+            '"glycemic control" AND (fiber OR "low carbohydrate" OR protein)',
+            '"intermittent fasting" AND (metabolism OR "blood glucose")',
+        ],
+        "host_focus": """HOST 1 - DAN:
+- Registered dietitian specializing in diabetes and metabolic health
+- Evidence-focused and skeptical of metabolic quick-fixes
+- Critical of poorly designed studies and keto/fasting hype
+- Speaks in clear, accessible language about blood sugar science
+- Occasionally uses dry humor about carb-phobia trends
+
+HOST 2 - ALEX:
+- Science journalist who covers metabolic health and longevity
+- Asks the questions that pre-diabetics and health optimizers would ask
+- Helps translate complex insulin and metabolism concepts
+- Curious and engaged, but defers to Dan on clinical matters
+- Good at drawing out practical lifestyle implications""",
+        "context": "metabolic health, diabetes prevention, and nutrition research for healthcare professionals and health-conscious individuals"
+    }
+}
 
 # E-utilities base URLs
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
@@ -44,7 +118,7 @@ VOICE_DAN = "pNInz6obpgDQGcFmaJgB"  # Adam - male voice for Dan
 VOICE_ALEX = "21m00Tcm4TlvDq8ikWAM"  # Rachel - female voice for Alex
 
 
-def fetch_studies(max_studies=5):
+def fetch_studies(queries, max_studies=5):
     """
     Fetch unique studies from PubMed using E-utilities API.
     Returns a list of dicts with title, abstract, link, and pubdate.
@@ -54,7 +128,7 @@ def fetch_studies(max_studies=5):
     all_pmids = set()
 
     # Step 1: Search for PMIDs from each query (with rate limiting)
-    for i, query in enumerate(PUBMED_QUERIES):
+    for i, query in enumerate(queries):
         try:
             # Rate limit: NCBI allows 3 requests/second without API key
             if i > 0:
@@ -164,7 +238,7 @@ def fetch_studies(max_studies=5):
     return studies
 
 
-def analyze_with_claude(studies):
+def analyze_with_claude(studies, topic_config):
     """
     Generate a conversational podcast script using Claude API.
     Returns the script text.
@@ -185,23 +259,11 @@ Published: {study['pubdate'].strftime('%Y-%m-%d')}
 ---
 """
 
-    prompt = f"""You are writing a podcast script for "The GLP-1 Research Digest," a weekly podcast that breaks down the latest GLP-1 and obesity medication research for healthcare professionals and educated patients.
+    prompt = f"""You are writing a podcast script for "The {topic_config['name']}," a podcast that breaks down the latest {topic_config['context']}.
 
 CREATE A CONVERSATIONAL SCRIPT BETWEEN TWO HOSTS:
 
-HOST 1 - DAN:
-- Registered dietitian with 15 years of clinical experience
-- Evidence-focused and appropriately skeptical
-- Critical of poorly designed studies and overhyped findings
-- Speaks in clear, accessible language but doesn't dumb things down
-- Occasionally uses dry humor
-
-HOST 2 - ALEX:
-- Science journalist who covers metabolic health
-- Asks the questions that listeners would ask
-- Helps translate complex concepts
-- Curious and engaged, but defers to Dan on clinical matters
-- Good at drawing out practical implications
+{topic_config['host_focus']}
 
 STUDIES TO COVER:
 {studies_text}
@@ -376,18 +438,18 @@ def update_rss_feed(episode_title, episode_description, mp3_filename, duration_s
         channel = ET.SubElement(root, 'channel')
 
         # Channel metadata
-        ET.SubElement(channel, 'title').text = "The GLP-1 Research Digest"
+        ET.SubElement(channel, 'title').text = "Health Research Digest"
         ET.SubElement(channel, 'link').text = base_url
-        ET.SubElement(channel, 'description').text = "Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist)."
+        ET.SubElement(channel, 'description').text = "Weekly analysis of the latest health and nutrition research. Covering GLP-1 medications, cardiovascular health, and metabolic research. Hosted by Dan (registered dietitian) and Alex (science journalist)."
         ET.SubElement(channel, 'language').text = "en-us"
         ET.SubElement(channel, 'lastBuildDate').text = datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')
 
         # iTunes tags
         itunes_author = ET.SubElement(channel, '{%s}author' % itunes_ns)
-        itunes_author.text = "GLP-1 Research Digest"
+        itunes_author.text = "Health Research Digest"
 
         itunes_summary = ET.SubElement(channel, '{%s}summary' % itunes_ns)
-        itunes_summary.text = "Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients."
+        itunes_summary.text = "Weekly analysis of the latest health and nutrition research for healthcare professionals and informed patients."
 
         itunes_explicit = ET.SubElement(channel, '{%s}explicit' % itunes_ns)
         itunes_explicit.text = "no"
@@ -469,24 +531,35 @@ def main():
     """
     Main pipeline: fetch studies, generate script, create audio, update feed.
     """
+    # Get topic from environment variable, default to glp1
+    topic_key = os.environ.get("PODCAST_TOPIC", "glp1").lower()
+
+    if topic_key not in TOPICS:
+        print(f"Unknown topic: {topic_key}. Available topics: {list(TOPICS.keys())}")
+        print("Defaulting to 'glp1'")
+        topic_key = "glp1"
+
+    topic_config = TOPICS[topic_key]
+
     print("=" * 60)
-    print("GLP-1 Research Podcast Generator")
+    print(f"Health Research Podcast Generator")
+    print(f"Topic: {topic_config['name']}")
     print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
     # Step 1: Fetch studies
-    studies = fetch_studies(max_studies=5)
+    studies = fetch_studies(topic_config['queries'], max_studies=5)
 
     if not studies:
         print("No studies found. Exiting.")
         return
 
     # Step 2: Generate script with Claude
-    script = analyze_with_claude(studies)
+    script = analyze_with_claude(studies, topic_config)
 
     # Step 3: Generate audio
     date_str = datetime.now().strftime('%Y-%m-%d')
-    mp3_filename = f"glp1-digest-{date_str}.mp3"
+    mp3_filename = f"{topic_config['file_prefix']}-{date_str}.mp3"
     mp3_path = f"episodes/{mp3_filename}"
 
     # Ensure episodes directory exists
@@ -495,11 +568,11 @@ def main():
     audio_path, duration = generate_conversational_audio(script, mp3_path)
 
     # Step 4: Update RSS feed
-    episode_title = f"GLP-1 Research Digest - {date_str}"
+    episode_title = f"{topic_config['name']} - {date_str}"
 
     # Create description from study titles
     study_titles = [s['title'][:100] for s in studies]
-    episode_description = f"This week's research roundup covers: {'; '.join(study_titles)}"
+    episode_description = f"This episode covers: {'; '.join(study_titles)}"
 
     update_rss_feed(episode_title, episode_description, mp3_filename, duration)
 
