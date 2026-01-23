@@ -5,13 +5,23 @@
     <link>https://Dc1616DC.github.io/glp1-research-podcast</link>
     <description>Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist).</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jan 2026 17:09:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 12:06:10 +0000</lastBuildDate>
     <ns0:author>GLP-1 Research Digest</ns0:author>
     <ns0:summary>Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients.</ns0:summary>
     <ns0:explicit>no</ns0:explicit>
     <ns0:category text="Health &amp; Fitness">
       <ns0:category text="Nutrition"/>
     </ns0:category>
+    <item>
+      <title>Metabolic Health Digest - 2026-01-23</title>
+      <description>This episode covers: Medication Adherence in the Glycemia Reduction Approaches in Diabetes: A Comparative Effectiveness S; Puerarin-loaded injectable hydrogel mitigates skeletal muscle wasting in colorectal cancer cachexia ; Vildagliptin and Omarigliptin Differentially Bind to DPP-4 Homodimers and Modulate Osteoclast-Mediat; The Beverage Quality Index and type 2 diabetes risk in women: a prospective analysis of the Mexican ; Prospective association between the triglyceride-glucose index and frailty in middle-aged and older </description>
+      <pubDate>Fri, 23 Jan 2026 12:06:10 +0000</pubDate>
+      <guid isPermaLink="false">glp1-research-podcast-20260123120610</guid>
+      <enclosure url="https://raw.githubusercontent.com/Dc1616DC/glp1-research-podcast/main/episodes/metabolic-health-2026-01-23.mp3" type="audio/mpeg" length="11078888"/>
+      <ns0:duration>11:32</ns0:duration>
+      <ns0:summary>This episode covers: Medication Adherence in the Glycemia Reduction Approaches in Diabetes: A Comparative Effectiveness S; Puerarin-loaded injectable hydrogel mitigates skeletal muscle wasting in colorectal cancer cachexia ; Vildagliptin and Omarigliptin Differentially Bind to DPP-4 Homodimers and Modulate Osteoclast-Mediat; The Beverage Quality Index and type 2 diabetes risk in women: a prospective analysis of the Mexican ; Prospective association between the triglyceride-glucose index and frailty in middle-aged and older </ns0:summary>
+      <ns0:explicit>no</ns0:explicit>
+    </item>
     <item>
       <title>Heart Health Research Digest - 2026-01-21</title>
       <description>This episode covers: Associations Between the Cardiovascular Health Diet Index (CHDI) and Cardiometabolic Risk Factors in; 2026 Heart Disease and Stroke Statistics: A Report of US and Global Data From the American Heart Ass; Lifestyle factors and cardiometabolic risk.; Evaluating Cardiovascular Disease Risk.; Berberine Reduces Atrial Lipotoxicity and Endoplasmic Reticulum Stress to Alleviate Heart Failure Wi</description>
