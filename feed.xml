@@ -5,13 +5,23 @@
     <link>https://Dc1616DC.github.io/glp1-research-podcast</link>
     <description>Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist).</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Feb 2026 12:08:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 12:12:17 +0000</lastBuildDate>
     <ns0:author>GLP-1 Research Digest</ns0:author>
     <ns0:summary>Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients.</ns0:summary>
     <ns0:explicit>no</ns0:explicit>
     <ns0:category text="Health &amp; Fitness">
       <ns0:category text="Nutrition"/>
     </ns0:category>
+    <item>
+      <title>GLP-1 Research Digest - 2026-03-02</title>
+      <description>This episode covers: In vitro metabolic profiling of weight-loss-inducing amylin receptor agonists in the context of prev; The Effect of GLP-1 Receptor Agonists on Alanine Aminotransferase and Other Metabolic Parameters in ; Efficacy and Safety of Glucagon-Like Peptide-1 Receptor Agonists Following Bariatric Surgery: A Syst; Dose-Escalation Regimens for Incretin Mimetics in Type 2 Diabetes Are Associated With Tolerance for ; Efficacy and safety of once-daily oral orforglipron compared with oral semaglutide in adults with ty</description>
+      <pubDate>Mon, 02 Mar 2026 12:12:17 +0000</pubDate>
+      <guid isPermaLink="false">glp1-research-podcast-20260302121217</guid>
+      <enclosure url="https://raw.githubusercontent.com/Dc1616DC/glp1-research-podcast/main/episodes/glp1-digest-2026-03-02.mp3" type="audio/mpeg" length="11498101"/>
+      <ns0:duration>11:58</ns0:duration>
+      <ns0:summary>This episode covers: In vitro metabolic profiling of weight-loss-inducing amylin receptor agonists in the context of prev; The Effect of GLP-1 Receptor Agonists on Alanine Aminotransferase and Other Metabolic Parameters in ; Efficacy and Safety of Glucagon-Like Peptide-1 Receptor Agonists Following Bariatric Surgery: A Syst; Dose-Escalation Regimens for Incretin Mimetics in Type 2 Diabetes Are Associated With Tolerance for ; Efficacy and safety of once-daily oral orforglipron compared with oral semaglutide in adults with ty</ns0:summary>
+      <ns0:explicit>no</ns0:explicit>
+    </item>
     <item>
       <title>Metabolic Health Digest - 2026-02-27</title>
       <description>This episode covers: Targeting AMPK/PI3K/AKT/mTOR pathway ameliorates kidney injury induced by type 2 diabetes.; Effects of intensive lifestyle modification incorporating calorie-carbohydrate restriction with or w; Implementation of a Personalized Medicine Approach in Patients With Type 2 Diabetes Mellitus Receivi; Fasting impairs humoral immunological memory by β-hydroxybutyrate-mediated depletion of plasma cells; Functional Foods as Modulators of Epigenetic Mechanisms Affecting Metabolic Health in Adolescence.</description>
