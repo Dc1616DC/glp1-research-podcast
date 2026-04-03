@@ -5,13 +5,23 @@
     <link>https://Dc1616DC.github.io/glp1-research-podcast</link>
     <description>Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist).</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 12:16:18 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2026 12:10:23 +0000</lastBuildDate>
     <ns0:author>GLP-1 Research Digest</ns0:author>
     <ns0:summary>Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients.</ns0:summary>
     <ns0:explicit>no</ns0:explicit>
     <ns0:category text="Health &amp; Fitness">
       <ns0:category text="Nutrition"/>
     </ns0:category>
+    <item>
+      <title>Metabolic Health Digest - 2026-04-03</title>
+      <description>This episode covers: Human fecal transplantation from stunted children promotes metabolic dysfunction in mice fed with a ; Incremental peritoneal dialysis preserves residual renal function in diabetic end-stage kidney disea; Recent advances in incretin biology and therapeutics: From glucose-dependent insulinotropic polypept; Impact of hypoglycemic agents on glycemic control and cognitive decline in older adults with type 2 ; ​The inverse relationship between copy number variation burden and age of onset of metabolic syndrom</description>
+      <pubDate>Fri, 03 Apr 2026 12:10:23 +0000</pubDate>
+      <guid isPermaLink="false">glp1-research-podcast-20260403121023</guid>
+      <enclosure url="https://raw.githubusercontent.com/Dc1616DC/glp1-research-podcast/main/episodes/metabolic-health-2026-04-03.mp3" type="audio/mpeg" length="10893732"/>
+      <ns0:duration>11:20</ns0:duration>
+      <ns0:summary>This episode covers: Human fecal transplantation from stunted children promotes metabolic dysfunction in mice fed with a ; Incremental peritoneal dialysis preserves residual renal function in diabetic end-stage kidney disea; Recent advances in incretin biology and therapeutics: From glucose-dependent insulinotropic polypept; Impact of hypoglycemic agents on glycemic control and cognitive decline in older adults with type 2 ; ​The inverse relationship between copy number variation burden and age of onset of metabolic syndrom</ns0:summary>
+      <ns0:explicit>no</ns0:explicit>
+    </item>
     <item>
       <title>Heart Health Research Digest - 2026-04-01</title>
       <description>This episode covers: Dietary patterns and endothelium dysfunction: a literature review.; Unpacking developmental programming: a conceptual and historical analysis in the context of DOHaD.; Clinical Interpretation of Modest Blood Pressure Changes After SGLT2 Inhibitor Initiation.; Clinical Characteristics, Management and Outcomes of Nonintensive Care Unit Candidemia: Subanalysis ; Association between sarcopenia and mortality in patients with osteoarthritis.</description>
