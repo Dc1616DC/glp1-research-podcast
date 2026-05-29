@@ -5,13 +5,23 @@
     <link>https://Dc1616DC.github.io/glp1-research-podcast</link>
     <description>Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist).</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 May 2026 13:02:59 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 12:59:02 +0000</lastBuildDate>
     <ns0:author>GLP-1 Research Digest</ns0:author>
     <ns0:summary>Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients.</ns0:summary>
     <ns0:explicit>no</ns0:explicit>
     <ns0:category text="Health &amp; Fitness">
       <ns0:category text="Nutrition"/>
     </ns0:category>
+    <item>
+      <title>Metabolic Health Digest - 2026-05-29</title>
+      <description>This episode covers: Metabolic dysfunction and insulin resistance across major dementias: A comprehensive narrative revie; NRF2 activation by myrcene restores redox balance and metabolic homeostasis in a mouse model of type; Triglyceride-glucose index as a marker of metabolic and inflammatory risk across different thyroid f; Intermittent Fasting Attenuates Cognitive Decline in D-Galactose-Induced Aging Rats in Association w; Experiences of People With Poorly Controlled Type 2 Diabetes Using Telemonitoring: Qualitative Study</description>
+      <pubDate>Fri, 29 May 2026 12:59:02 +0000</pubDate>
+      <guid isPermaLink="false">glp1-research-podcast-20260529125902</guid>
+      <enclosure url="https://raw.githubusercontent.com/Dc1616DC/glp1-research-podcast/main/episodes/metabolic-health-2026-05-29.mp3" type="audio/mpeg" length="10579008"/>
+      <ns0:duration>11:01</ns0:duration>
+      <ns0:summary>This episode covers: Metabolic dysfunction and insulin resistance across major dementias: A comprehensive narrative revie; NRF2 activation by myrcene restores redox balance and metabolic homeostasis in a mouse model of type; Triglyceride-glucose index as a marker of metabolic and inflammatory risk across different thyroid f; Intermittent Fasting Attenuates Cognitive Decline in D-Galactose-Induced Aging Rats in Association w; Experiences of People With Poorly Controlled Type 2 Diabetes Using Telemonitoring: Qualitative Study</ns0:summary>
+      <ns0:explicit>no</ns0:explicit>
+    </item>
     <item>
       <title>Heart Health Research Digest - 2026-05-27</title>
       <description>This episode covers: The association between regional anesthesia and postoperative pulmonary complications following lung; Metabolic-inflammatory burden predicts mortality in heart failure across population and ICU cohorts.; Effectiveness of Mediterranean diet for the primary prevention of cardiovascular diseases: A systema; Lipoprotein(a) screening: Balancing benefits and challenges in clinical decision-making.; From pantry to physiology: A narrative review linking food insecurity to biological dysfunction.</description>
