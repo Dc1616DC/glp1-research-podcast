@@ -5,13 +5,23 @@
     <link>https://Dc1616DC.github.io/glp1-research-podcast</link>
     <description>Weekly analysis of the latest GLP-1 and obesity medication research. Hosted by Dan (registered dietitian) and Alex (science journalist).</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jun 2026 13:04:27 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2026 13:03:02 +0000</lastBuildDate>
     <ns0:author>GLP-1 Research Digest</ns0:author>
     <ns0:summary>Weekly analysis of the latest GLP-1 and obesity medication research for healthcare professionals and informed patients.</ns0:summary>
     <ns0:explicit>no</ns0:explicit>
     <ns0:category text="Health &amp; Fitness">
       <ns0:category text="Nutrition"/>
     </ns0:category>
+    <item>
+      <title>Metabolic Health Digest - 2026-06-12</title>
+      <description>This episode covers: Excessive training does not induce mitochondrial dysfunction or impair insulin signalling within ske; Association of Weight Loss With Improvement in Metabolic Status Among People Eligible for the Specif; Intermittent fasting synergizes with GCN5 inhibition to suppress RBM5-AS1/GCN5/PGC-1α-driven Warburg; Endurance exercise intervention reduces vegetable intake which compromises the achievement of glycem; Suvorexant protects from ocular complications of diabetes in db/db mice.</description>
+      <pubDate>Fri, 12 Jun 2026 13:03:02 +0000</pubDate>
+      <guid isPermaLink="false">glp1-research-podcast-20260612130302</guid>
+      <enclosure url="https://raw.githubusercontent.com/Dc1616DC/glp1-research-podcast/main/episodes/metabolic-health-2026-06-12.mp3" type="audio/mpeg" length="11014522"/>
+      <ns0:duration>11:28</ns0:duration>
+      <ns0:summary>This episode covers: Excessive training does not induce mitochondrial dysfunction or impair insulin signalling within ske; Association of Weight Loss With Improvement in Metabolic Status Among People Eligible for the Specif; Intermittent fasting synergizes with GCN5 inhibition to suppress RBM5-AS1/GCN5/PGC-1α-driven Warburg; Endurance exercise intervention reduces vegetable intake which compromises the achievement of glycem; Suvorexant protects from ocular complications of diabetes in db/db mice.</ns0:summary>
+      <ns0:explicit>no</ns0:explicit>
+    </item>
     <item>
       <title>Heart Health Research Digest - 2026-06-10</title>
       <description>This episode covers: Effectiveness of Mediterranean diet for the primary prevention of cardiovascular diseases: A systema; Facilitators and barriers to home eating behaviors in patients with heart failure: A qualitative des; Inflammasome-Primed Neutrophils Aggravate Atherosclerosis in Cigarette Smoking.; Differences in built environmental exposures between three million older adults with and without car; Comparative prognostic performance of nutritional, immune-inflammatory, and anthropometric indices f</description>
